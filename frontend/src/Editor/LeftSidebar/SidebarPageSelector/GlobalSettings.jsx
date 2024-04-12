@@ -33,6 +33,12 @@ export const GlobalSettings = ({ darkMode, showHideViewerNavigationControls, isV
 
   const togglePinState = () => {
     setIsPinned(!isPinned);
+    try {
+      localStorage.setItem('globalSettingsPinned', JSON.stringify(!isPinned));
+      console.log(`Global Settings pinned state updated to: ${!isPinned}`);
+    } catch (error) {
+      console.error('Error updating pin state in local storage:', error);
+    }
   };
 
   const onChange = () => {
@@ -53,7 +59,7 @@ export const GlobalSettings = ({ darkMode, showHideViewerNavigationControls, isV
         placement={'bottom-end'}
         rootClose={true}
         overlay={
-          <Popover id="page-handler-menu" className={`global-settings ${darkMode && 'dark-theme'}`}>
+          <Popover id="page-handler-menu" className={`global-settings ${darkMode ? 'dark-theme' : ''}`}>
             <Popover.Body bsPrefix="popover-body">
               <div className="card-body">
                 <label htmlFor="pin" className="form-label" data-cy={`page-settings-header`}>
