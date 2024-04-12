@@ -1,0 +1,9 @@
+.global-settings-pinned {
+  /* Example styles; adjust based on actual UI design */
+  display: block;
+}
+
+.global-settings-unpinned {
+  /* Example styles; adjust based on actual UI design */
+  display: none; /* Or use visibility: hidden; based on the requirements */
+}

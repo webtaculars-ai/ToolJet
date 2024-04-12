@@ -3,6 +3,7 @@ import { OverlayTrigger, Popover, Button } from 'react-bootstrap';
 import { useAppVersionStore } from '@/_stores/appVersionStore';
 import { shallow } from 'zustand/shallow';
 import SolidIcon from '@/_ui/Icon/SolidIcons';
+import './globalSettings.css'; // Import CSS for visibility control
 
 export const GlobalSettings = ({ darkMode, showHideViewerNavigationControls, isViewerNavigationDisabled }) => {
   const { isVersionReleased, enableReleasedVersionPopupState } = useAppVersionStore(
@@ -49,8 +50,10 @@ export const GlobalSettings = ({ darkMode, showHideViewerNavigationControls, isV
     showHideViewerNavigationControls();
   };
 
+  const pinnedClass = isPinned ? 'global-settings-pinned' : 'global-settings-unpinned';
+
   return (
-    <div>
+    <div className={`global-settings ${pinnedClass}`}>
       <Button variant="outline-secondary" onClick={togglePinState} className="mb-2">
         {isPinned ? 'Unpin' : 'Pin'} Settings
       </Button>
