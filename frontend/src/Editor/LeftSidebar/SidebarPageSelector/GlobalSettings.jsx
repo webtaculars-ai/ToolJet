@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { OverlayTrigger, Popover } from 'react-bootstrap';
 import { useAppVersionStore } from '@/_stores/appVersionStore';
 import { shallow } from 'zustand/shallow';
@@ -12,6 +12,23 @@ export const GlobalSettings = ({ darkMode, showHideViewerNavigationControls, isV
     }),
     shallow
   );
+
+  const [isPinned, setIsPinned] = useState(() => {
+    try {
+      const pinnedState = localStorage.getItem('globalSettingsPinned');
+      return pinnedState ? JSON.parse(pinnedState) : false;
+    } catch (error) {
+      return false; // Default to false in case of any error
+    }
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('globalSettingsPinned', JSON.stringify(isPinned));
+    } catch (error) {
+      console.error('Error updating pin state in local storage:', error);
+    }
+  }, [isPinned]);
 
   const onChange = () => {
     if (isVersionReleased) {
