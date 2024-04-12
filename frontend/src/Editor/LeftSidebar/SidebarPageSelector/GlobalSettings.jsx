@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { OverlayTrigger, Popover } from 'react-bootstrap';
+import { OverlayTrigger, Popover, Button } from 'react-bootstrap';
 import { useAppVersionStore } from '@/_stores/appVersionStore';
 import { shallow } from 'zustand/shallow';
 import SolidIcon from '@/_ui/Icon/SolidIcons';
@@ -18,6 +18,7 @@ export const GlobalSettings = ({ darkMode, showHideViewerNavigationControls, isV
       const pinnedState = localStorage.getItem('globalSettingsPinned');
       return pinnedState ? JSON.parse(pinnedState) : false;
     } catch (error) {
+      console.error('Error reading pin state from local storage:', error);
       return false; // Default to false in case of any error
     }
   });
@@ -30,6 +31,10 @@ export const GlobalSettings = ({ darkMode, showHideViewerNavigationControls, isV
     }
   }, [isPinned]);
 
+  const togglePinState = () => {
+    setIsPinned(!isPinned);
+  };
+
   const onChange = () => {
     if (isVersionReleased) {
       enableReleasedVersionPopupState();
@@ -39,30 +44,35 @@ export const GlobalSettings = ({ darkMode, showHideViewerNavigationControls, isV
   };
 
   return (
-    <OverlayTrigger
-      trigger={'click'}
-      placement={'bottom-end'}
-      rootClose={true}
-      overlay={
-        <Popover id="page-handler-menu" className={`global-settings ${darkMode && 'dark-theme'}`}>
-          <Popover.Body bsPrefix="popover-body">
-            <div className="card-body">
-              <label htmlFor="pin" className="form-label" data-cy={`page-settings-header`}>
-                Settings
-              </label>
-              <hr style={{ margin: '0.75rem 0' }} />
-              <div className="menu-options mb-0">
-                <Toggle onChange={onChange} value={isViewerNavigationDisabled} />
+    <div>
+      <Button variant="outline-secondary" onClick={togglePinState} className="mb-2">
+        {isPinned ? 'Unpin' : 'Pin'} Settings
+      </Button>
+      <OverlayTrigger
+        trigger={'click'}
+        placement={'bottom-end'}
+        rootClose={true}
+        overlay={
+          <Popover id="page-handler-menu" className={`global-settings ${darkMode && 'dark-theme'}`}>
+            <Popover.Body bsPrefix="popover-body">
+              <div className="card-body">
+                <label htmlFor="pin" className="form-label" data-cy={`page-settings-header`}>
+                  Settings
+                </label>
+                <hr style={{ margin: '0.75rem 0' }} />
+                <div className="menu-options mb-0">
+                  <Toggle onChange={onChange} value={isViewerNavigationDisabled} />
+                </div>
               </div>
-            </div>
-          </Popover.Body>
-        </Popover>
-      }
-    >
-      <span>
-        <SolidIcon data-cy={'menu-icon'} name="morevertical" width="28" />
-      </span>
-    </OverlayTrigger>
+            </Popover.Body>
+          </Popover>
+        }
+      >
+        <span>
+          <SolidIcon data-cy={'menu-icon'} name="morevertical" width="28" />
+        </span>
+      </OverlayTrigger>
+    </div>
   );
 };
 
