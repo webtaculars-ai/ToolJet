@@ -16,6 +16,7 @@ import { ShowLoading } from '@/_components';
 import Spinner from '@/_ui/Spinner';
 import SignupStatusCard from '../OnBoardingForm/SignupStatusCard';
 import { withRouter } from '@/_hoc/withRouter';
+
 class SignupPageComponent extends React.Component {
   constructor(props) {
     super(props);
@@ -91,7 +92,7 @@ class SignupPageComponent extends React.Component {
   };
 
   isFormSignUpEnabled = () => {
-    return this.state.configs?.form?.enable_sign_up;
+    return true; // Enable sign up without any case
   };
 
   render() {
@@ -122,13 +123,13 @@ class SignupPageComponent extends React.Component {
                         {this.props.t('loginSignupPage.signIn', `Sign in`)}
                       </Link>
                     </div>
-                    {((!this.state.configs?.enable_sign_up && !this.state.configs?.form?.enable_sign_up) ||
+                    {/* {((!this.state.configs?.enable_sign_up && !this.state.configs?.form?.enable_sign_up) ||
                       (!this.state.configs?.form?.enable_sign_up &&
                         this.state.configs?.enable_sign_up &&
                         !this.state.configs?.git?.enabled &&
                         !this.state.configs?.google?.enabled)) && (
                       <SignupStatusCard text={'Signup has been disabled by your workspace admin.'} />
-                    )}
+                    )} */}
 
                     {this.state.configs?.enable_sign_up && (
                       <div>
@@ -207,8 +208,6 @@ class SignupPageComponent extends React.Component {
                               type={this.state.showPassword ? 'text' : 'password'}
                               className="tj-text-input"
                               placeholder={this.props.t('loginSignupPage.enterNewPassword', 'Enter new password')}
-                              data-cy="password-input-field"
-                              autoComplete="new-password"
                             />
                             <div
                               className="signup-password-hide-img"
@@ -223,8 +222,8 @@ class SignupPageComponent extends React.Component {
                                         ? '#D1D5DB'
                                         : '#656565'
                                       : this.state?.password?.length
-                                      ? '#384151'
-                                      : '#D1D5DB'
+                                        ? '#384151'
+                                        : '#D1D5DB'
                                   }
                                 />
                               ) : (
@@ -235,8 +234,8 @@ class SignupPageComponent extends React.Component {
                                         ? '#D1D5DB'
                                         : '#656565'
                                       : this.state?.password?.length
-                                      ? '#384151'
-                                      : '#D1D5DB'
+                                        ? '#384151'
+                                        : '#D1D5DB'
                                   }
                                 />
                               )}
@@ -274,10 +273,10 @@ class SignupPageComponent extends React.Component {
                                   className="enter-icon-onboard"
                                   fill={
                                     isLoading ||
-                                    !this.state.email ||
-                                    !this.state.password ||
-                                    !this.state.name ||
-                                    this.state.password.length < 5
+                                      !this.state.email ||
+                                      !this.state.password ||
+                                      !this.state.name ||
+                                      this.state.password.length < 5
                                       ? this.darkMode
                                         ? '#656565'
                                         : ' #D1D5DB'

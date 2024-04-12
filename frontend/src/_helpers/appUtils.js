@@ -856,8 +856,8 @@ export function previewQuery(_ref, query, calledFromQuery = false, userSuppliedP
           query.kind === 'tooljetdb'
             ? data.statusText
             : query.kind === 'runpy'
-            ? data?.data?.status ?? 'ok'
-            : data.status;
+              ? data?.data?.status ?? 'ok'
+              : data.status;
 
         switch (true) {
           // Note: Need to move away from statusText -> statusCode
@@ -868,10 +868,10 @@ export function previewQuery(_ref, query, calledFromQuery = false, userSuppliedP
             queryStatusCode === 400 ||
             queryStatusCode === 404 ||
             queryStatusCode === 422: {
-            const err = query.kind == 'tooljetdb' ? data?.error || data : _.isEmpty(data.data) ? data : data.data;
-            toast.error(`${err.message}`);
-            break;
-          }
+              const err = query.kind == 'tooljetdb' ? data?.error || data : _.isEmpty(data.data) ? data : data.data;
+              toast.error(`${err.message}`);
+              break;
+            }
           case queryStatus === 'needs_oauth': {
             const url = data.data.auth_url; // Backend generates and return sthe auth url
             fetchOAuthToken(url, query.data_source_id);
@@ -882,11 +882,11 @@ export function previewQuery(_ref, query, calledFromQuery = false, userSuppliedP
             queryStatus === 'Created' ||
             queryStatus === 'Accepted' ||
             queryStatus === 'No Content': {
-            toast(`Query ${'(' + query.name + ') ' || ''}completed.`, {
-              icon: '🚀',
-            });
-            break;
-          }
+              toast(`Query ${'(' + query.name + ') ' || ''}completed.`, {
+                icon: '🚀',
+              });
+              break;
+            }
         }
 
         resolve({ status: data.status, data: finalData });
@@ -1005,8 +1005,8 @@ export function runQuery(
           query.kind === 'tooljetdb'
             ? data.statusText
             : query.kind === 'runpy'
-            ? data?.data?.status ?? 'ok'
-            : data.status;
+              ? data?.data?.status ?? 'ok'
+              : data.status;
         // Note: Need to move away from statusText -> statusCode
         if (
           promiseStatus === 'failed' ||
@@ -1062,10 +1062,10 @@ export function runQuery(
                 },
                 query.kind === 'restapi'
                   ? {
-                      request: data.data.requestObject,
-                      response: data.data.responseObject,
-                      responseHeaders: data.data.responseHeaders,
-                    }
+                    request: data.data.requestObject,
+                    response: data.data.responseObject,
+                    responseHeaders: data.data.responseHeaders,
+                  }
                   : {}
               ),
             },
@@ -1137,10 +1137,10 @@ export function runQuery(
                 },
                 query.kind === 'restapi'
                   ? {
-                      request: data.request,
-                      response: data.response,
-                      responseHeaders: data.responseHeaders,
-                    }
+                    request: data.request,
+                    response: data.response,
+                    responseHeaders: data.responseHeaders,
+                  }
                   : {}
               ),
             },

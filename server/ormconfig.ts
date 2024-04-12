@@ -68,6 +68,10 @@ function buildConnectionOptions(data): TypeOrmModuleOptions {
     cli: {
       migrationsDir: 'migrations',
     },
+    ssl: {
+      rejectUnauthorized: false // for development environment
+    }
+
   };
 }
 
@@ -96,6 +100,9 @@ function buildToolJetDbConnectionOptions(data): TypeOrmModuleOptions {
     migrationsTransactionMode: 'all',
     logging: data.ORM_LOGGING || false,
     keepConnectionAlive: true,
+    ssl: {
+      rejectUnauthorized: false // for development environment
+    }
   };
 }
 
