@@ -4,6 +4,8 @@ import { useAppVersionStore } from '@/_stores/appVersionStore';
 import { shallow } from 'zustand/shallow';
 import SolidIcon from '@/_ui/Icon/SolidIcons';
 import './globalSettings.css'; // Import CSS for visibility control
+// Import PinUnpinButton component
+import PinUnpinButton from '../PinUnpinButton'; // Ensure the correct path is set for this import
 
 export const GlobalSettings = ({ darkMode, showHideViewerNavigationControls, isViewerNavigationDisabled }) => {
   const { isVersionReleased, enableReleasedVersionPopupState } = useAppVersionStore(
@@ -54,9 +56,8 @@ export const GlobalSettings = ({ darkMode, showHideViewerNavigationControls, isV
 
   return (
     <div className={`global-settings ${pinnedClass}`}>
-      <Button variant="outline-secondary" onClick={togglePinState} className="mb-2">
-        {isPinned ? 'Unpin' : 'Pin'} Settings
-      </Button>
+      {/* Replace Button with PinUnpinButton for pin/unpin functionality */}
+      <PinUnpinButton isPinned={isPinned} onClick={togglePinState} />
       <OverlayTrigger
         trigger={'click'}
         placement={'bottom-end'}
